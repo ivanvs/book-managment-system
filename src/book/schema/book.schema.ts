@@ -16,4 +16,4 @@ export class Book {
 }
 
 export const BookSchema = SchemaFactory.createForClass(Book);
-BookSchema.index({ title: 'text', description: 'text' });
+BookSchema.index({ '$**': 'text' });
