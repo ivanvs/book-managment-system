@@ -1,24 +1,33 @@
 import {
+  BadRequestException,
   Body,
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Post,
   Put,
+  UseFilters,
 } from '@nestjs/common';
+import { MongooseExceptionFilter } from 'src/util/mongoose.exception.filter';
 import { BooksService } from './books.service';
 import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { Book } from './schema/book.schema';
 
 @Controller('books')
+@UseFilters(MongooseExceptionFilter)
 export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
   @Post()
   async create(@Body() createBookDto: CreateBookDto): Promise<Book> {
-    return this.booksService.create(createBookDto);
+    const createdBook = await this.booksService.create(createBookDto);
+    if (!createdBook) {
+      throw new BadRequestException();
+    }
+    return createdBook;
   }
 
   @Put(':id')
@@ -26,17 +35,30 @@ export class BooksController {
     @Param('id') id: string,
     @Body() updateBookDto: UpdateBookDto,
   ): Promise<Book> {
-    return this.booksService.update(id, updateBookDto);
+    const updatedBook = await this.booksService.update(id, updateBookDto);
+    if (!updatedBook) {
+      throw new NotFoundException();
+    }
+    return updatedBook;
   }
 
   @Delete(':id')
   async deleteById(@Param('id') id: string): Promise<Book> {
-    return this.booksService.deleteById(id);
+    const deletedBook = await this.booksService.deleteById(id);
+    if (!deletedBook) {
+      throw new NotFoundException();
+    }
+    return deletedBook;
   }
 
   @Get(':id')
   async findById(@Param('id') id: string): Promise<Book> {
-    return this.booksService.get(id);
+    const book = await this.booksService.get(id);
+    if (!book) {
+      throw new NotFoundException();
+    }
+
+    return book;
   }
 
   @Get()
