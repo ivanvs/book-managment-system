@@ -5,7 +5,6 @@ import { Response } from 'express';
 @Catch(MongooseError)
 export class MongooseExceptionFilter implements ExceptionFilter {
   catch(exception: MongooseError, host: ArgumentsHost) {
-    console.log(`Handling mongoose error: ${exception}`);
     switch (exception.name) {
       case 'CastError':
         this.sendResponse(400, 'Bad request', host);

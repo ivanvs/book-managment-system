@@ -12,8 +12,7 @@ import {
 } from '@nestjs/common';
 import { MongooseExceptionFilter } from 'src/util/mongoose.exception.filter';
 import { BooksService } from './books.service';
-import { CreateBookDto } from './dto/create-book.dto';
-import { UpdateBookDto } from './dto/update-book.dto';
+import { BookDto } from './dto/book.dto';
 import { Book } from './schema/book.schema';
 
 @Controller('books')
@@ -22,7 +21,7 @@ export class BooksController {
   constructor(private readonly booksService: BooksService) {}
 
   @Post()
-  async create(@Body() createBookDto: CreateBookDto): Promise<Book> {
+  async create(@Body() createBookDto: BookDto): Promise<Book> {
     const createdBook = await this.booksService.create(createBookDto);
     if (!createdBook) {
       throw new BadRequestException();
@@ -33,7 +32,7 @@ export class BooksController {
   @Put(':id')
   async updateById(
     @Param('id') id: string,
-    @Body() updateBookDto: UpdateBookDto,
+    @Body() updateBookDto: BookDto,
   ): Promise<Book> {
     const updatedBook = await this.booksService.update(id, updateBookDto);
     if (!updatedBook) {
