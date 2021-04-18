@@ -28,4 +28,8 @@ export class BooksService {
   async findAll(): Promise<Book[]> {
     return this.bookModel.find().exec();
   }
+
+  async search(query: string): Promise<Book[]> {
+    return this.bookModel.find({ $text: { $search: query } }).exec();
+  }
 }

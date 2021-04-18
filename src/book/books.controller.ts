@@ -13,6 +13,7 @@ import {
 import { MongooseExceptionFilter } from 'src/util/mongoose.exception.filter';
 import { BooksService } from './books.service';
 import { BookDto } from './dto/book.dto';
+import { QueryDto } from './dto/query.dto';
 import { Book } from './schema/book.schema';
 
 @Controller('books')
@@ -63,5 +64,10 @@ export class BooksController {
   @Get()
   async findAll(): Promise<Book[]> {
     return this.booksService.findAll();
+  }
+
+  @Post('search')
+  async searchBooks(@Body() queryDto: QueryDto): Promise<Book[]> {
+    return this.booksService.search(queryDto.query);
   }
 }
