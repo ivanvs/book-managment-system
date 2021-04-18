@@ -1,0 +1,9 @@
+version: '3'
+services:
+  book-managment-mongo-db:
+    image: mongo:4.4.5
+    restart: always
+    environment:
+      MONGODB_DATABASE: 'book_managment_system'
+    ports:
+      - '27017:27017'
