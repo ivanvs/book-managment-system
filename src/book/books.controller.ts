@@ -9,12 +9,19 @@ import {
   Post,
   Put,
   UseFilters,
+  UseInterceptors,
 } from '@nestjs/common';
 import { MongooseExceptionFilter } from 'src/util/mongoose.exception.filter';
 import { BooksService } from './books.service';
 import { BookDto } from './dto/book.dto';
 import { QueryDto } from './dto/query.dto';
 import { Book } from './schema/book.schema';
+import {
+  LinkHeaderInterceptor,
+  MongoPaginationParamDecorator,
+  MongoPagination,
+  Pageable,
+} from '@algoan/nestjs-pagination';
 
 @Controller('books')
 @UseFilters(MongooseExceptionFilter)
@@ -61,13 +68,20 @@ export class BooksController {
     return book;
   }
 
+  @UseInterceptors(new LinkHeaderInterceptor({ resource: 'data' }))
   @Get()
-  async findAll(): Promise<Book[]> {
-    return this.booksService.findAll();
+  async findAll(
+    @MongoPaginationParamDecorator() pagination: MongoPagination,
+  ): Promise<Pageable<Book>> {
+    return this.booksService.findAll(pagination);
   }
 
+  @UseInterceptors(new LinkHeaderInterceptor({ resource: 'data' }))
   @Post('search')
-  async searchBooks(@Body() queryDto: QueryDto): Promise<Book[]> {
-    return this.booksService.search(queryDto.query);
+  async searchBooks(
+    @Body() queryDto: QueryDto,
+    @MongoPaginationParamDecorator() pagination: MongoPagination,
+  ): Promise<Pageable<Book>> {
+    return this.booksService.search(queryDto.query, pagination);
   }
 }
