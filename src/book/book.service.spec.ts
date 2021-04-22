@@ -6,7 +6,7 @@ import {
 } from '../util/mongoose.test.module';
 import { BooksService } from './books.service';
 import { Book, BookSchema } from './schema/book.schema';
-import { MongoPagination } from '@algoan/nestjs-pagination';
+import { createEmptyPagination } from '../util/test.util';
 
 describe('BooksService', () => {
   let service: BooksService;
@@ -122,10 +122,6 @@ describe('BooksService', () => {
     );
 
     return books;
-  };
-
-  const createEmptyPagination = (): MongoPagination => {
-    return { filter: {}, limit: 100, skip: 0, project: {}, sort: {} };
   };
 
   afterAll(async () => {

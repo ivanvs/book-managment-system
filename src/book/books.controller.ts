@@ -11,7 +11,7 @@ import {
   UseFilters,
   UseInterceptors,
 } from '@nestjs/common';
-import { MongooseExceptionFilter } from 'src/util/mongoose.exception.filter';
+import { MongooseExceptionFilter } from '../util/mongoose.exception.filter';
 import { BooksService } from './books.service';
 import { BookDto } from './dto/book.dto';
 import { QueryDto } from './dto/query.dto';
