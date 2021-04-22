@@ -40,16 +40,16 @@ $ npm run test:cov
 
 ### Postman
 
-Postman collection can be found in `postman` folder. Postman is used in order to make development easier. Collection can be exported easily in a single file.
+Postman collection can be found in `postman` folder. Postman is used in order to make development easier. A collection of API Endpoint invocations can be exported easily in a single file, and that export can be found in the folder.
 
 ### Swagger
 
-Swagger is standard for documenting REST API. It has nice integration with Nest.js. Code because of Swagger documentation get full of annotation, but for small projects that should not be a problem. In case annotations for Swagger are not desired, we could supply json file with REST API description.
+Swagger is the de facto standard for documenting REST API. It can be easily integrated with Nest.js. Because of Swagger documentation, the code can get clogged with annotations, but such a small project like this one that should not be a problem. In the case when annotations for Swagger are not desired, we could supply a json file with the REST API description.
 
 ### MongoDB
 
-MongoDB is NoSQL database. It use JSON like documents. It is very easy to use from JavaScript. It has support for full-text search. So in case we want to search document, that could be easily done. In this case we have denormalized ducments so that they authors are not separate object but just a string. That way we could get search implemented faster and easier.
+MongoDB is a NoSQL database. It stores data in JSON-like documents and is very easy to use from JavaScript code. It has support for full-text search, so in case we want to search documents, that could be easily done. In this case we have denormalized ducments so that they authors are not separate object but just a string. That way we could implement search faster and easier.
 
 ### Nest.js
 
-Nest.js is Node.js framework with out of box support for Typescript. It combines elements of OOP (Object Oriented Programming), FP (Functional Programming), and FRP (Functional Reactive Programming). Under the hood it is using Express.js. It is very extensible and there is bunch of modules that can solve very common issues.
+Nest.js is Node.js framework with out-of-the-box support for Typescript. It combines elements of OOP (Object Oriented Programming), FP (Functional Programming), and FRP (Functional Reactive Programming). Under the hood it is using Express.js. It is very extensible and there is a great number of modules that can solve common issues and make life for developer easier.
